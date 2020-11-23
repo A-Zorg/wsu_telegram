@@ -1,14 +1,13 @@
 from behave import *
 from base.user_telegram import User
+from utiles.logger_file import LogGen
 import re
+logger = LogGen.loggen()
 
-
-@step("client get a ticket number")
-def step_impl(context):
-    client = User(context.client, context.bot[0])
-    message = client.get_message()
-    result = re.search(r'(#\d+)', message)
-    context.ticket_number = result.group(0)
+@then("agent get message -{message}-")
+def step_impl(context, message):
+    agent = User(context.agent, context.bot[0])
+    assert agent.check_message(message)
 
 @step("agent check a ticket number")
 def step_impl(context):
@@ -45,25 +44,6 @@ def step_impl(context, message):
 def step_impl(context, button):
     agent = User(context.agent, context.bot[0])
     agent.click_button(button)
-
-@step("client check a message: Ваш запит -ticket number- прийняв -agent-")
-def step_impl(context):
-    client = User(context.client, context.bot[0])
-    agent = User(context.agent, context.bot[0])
-    profile = agent.get_profile_fl_name_username()
-    assert client.check_message('Ваш запит '+context.ticket_number+' прийняв '+profile)
-
-@step("client check a message: Ваш запит -ticket number- прийняв -another agent-")
-def step_impl(context):
-    client = User(context.client, context.bot[0])
-    another_agent = User(context.agent, context.bot[0])
-    profile = another_agent.get_profile_fl_name_username()
-    assert client.check_message('Ваш запит '+context.ticket_number+' прийняв '+profile)
-
-@step("client empty button -{button}-")
-def step_impl(context, button):
-    client = User(context.agent, context.bot[0])
-    assert client.button_is_disappeared(button)
 
 @step("agent check message -{message}-{code}-")
 def step_impl(context, message, code):

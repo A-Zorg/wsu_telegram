@@ -5,14 +5,30 @@ import pyexcel
 import re
 
 """"script to parse bot's answers"""
+# client_dict = eval(os.environ.get('stalone'))
+# ops1_dict = eval(os.environ.get('chan'))
+ops2_dict = eval(os.environ.get('flash'))
+# sd1_dict = eval(os.environ.get('seagal'))
+# sd2_dict = eval(os.environ.get('wonder'))
+# it1_dict = eval(os.environ.get('batman'))
+# it2_dict = eval(os.environ.get('green'))
+#
+flash = TelegramClient('flash', ops2_dict['api_id'] , ops2_dict['api_hash']).start()
+# TelegramClient('wonder', sd2_dict['api_id'] , sd2_dict['api_hash']).start()
+# TelegramClient('batman', it1_dict['api_id'] , it1_dict['api_hash']).start()
+# TelegramClient('green', it2_dict['api_id'] , it2_dict['api_hash']).start()
+
 
 """ create telegram clients"""
 client_dict = eval(os.environ.get('stalone'))
 agent_dict = eval(os.environ.get('chan'))
+another_agent_dict = eval(os.environ.get('seagal'))
 bot = 'sd_test12_bot'
+support_bot = 'sd_test3_bot'
 
 client = TelegramClient('stalone', client_dict['api_id'] , client_dict['api_hash'])
 agent = TelegramClient('chan', agent_dict['api_id'], agent_dict['api_hash'])
+another_agent = TelegramClient('seagal', another_agent_dict['api_id'] , another_agent_dict['api_hash'])
 client.start()
 
 """create scenarios"""
@@ -97,6 +113,8 @@ current_button='/start'
 
 def find_button( messages, button_name):
     for message in messages:
+        if message.buttons==None:
+            continue
         for butt_row in message.buttons:
             for button in butt_row:
                 if button_name in button.text:
@@ -155,32 +173,52 @@ def table_save(event, func, button):
 # async def handler_2(event):
 #     print(current_button)
 #     table_save(event, 'edit', current_button)
-async def xxx(conver):
-    await conver.wait_event(events.NewMessage(from_users=bot))
+async def xxx(conver, bot = support_bot):
     await conver.wait_event(events.NewMessage(from_users=bot))
     try:
         await conver.wait_event(events.NewMessage(from_users=bot), timeout=5)
     except:
         pass
 
-async def wait(client):
+async def wait(client, bot = support_bot):
     async with client.conversation(bot) as conv:
         fff = asyncio.create_task(xxx(conv))
         edit = conv.wait_event(events.MessageEdited(from_users=bot))
         await asyncio.wait([fff, edit], return_when='FIRST_COMPLETED')
     # await asyncio.sleep(3)
 
+libra = []
+
+
 async def main():
-    asd = await agent.get_messages(bot, limit=2)
 
-    button = find_button(asd, 'Закрити тікет')
-    print(button.text)
-    # result = re.search(r'(#\d+)', asd[0].text)
-    # print(result.group(0))
+    mess = await agent.get_messages(support_bot, limit=1)
+    print(mess[0].text)
+    print(
+        'Ваш тикет из ⚡️ Smart.Support: messageFrom: Сильвестр Сталлоне (@smart_team_999)' == 'Ваш тикет из ⚡️ Smart.Support:messageFrom: Сильвестр Сталлоне (@smart_team_999)')
+    # for button_x in mess[0].buttons:
+    #     for button in button_x:
+    #         print(button.text)
+@flash.on(events.MessageEdited(from_users=support_bot))
+async def handler(event):
+    print('sdfasdf')
+    # print(event.buttons[0][0].text)
+    print('Ваш тикет из ⚡️ Smart.Support: messageFrom: Сильвестр Сталлоне (@smart_team_999)'=='Ваш тикет из ⚡️ Smart.Support:messageFrom: Сильвестр Сталлоне (@smart_team_999)')
 
+#
 with agent:
     agent.loop.run_until_complete(main())
 
+
+
+# print(bin(33285999655))
+# print(bin(3221228548))
+# print(bin(33285999649))
+# print(bin(33319551009))
+# print(bin(4096))
+#
+#
+# print(int("0b11111000000000000000000110000100001", 2))
 
 
 

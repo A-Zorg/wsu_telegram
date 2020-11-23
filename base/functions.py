@@ -18,3 +18,9 @@ def find_button(messages, button_name):
             for button in butt_row:
                 if button_name in button.text:
                     return button
+
+def check_message_by_list(mesage, lis):
+    for part in lis:
+        if part not in mesage:
+            return False
+    return True

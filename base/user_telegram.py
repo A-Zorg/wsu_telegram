@@ -34,10 +34,10 @@ class User():
     async def double_new_waiting (self, conver):
         await conver.wait_event(events.NewMessage(from_users=self.bot))
         try:
-            await conver.wait_event(events.NewMessage(from_users=self.bot), timeout=5)
+            await conver.wait_event(events.NewMessage(from_users=self.bot), timeout=3)
         except:
             pass
-            # logger.error('double_wait')
+
     async def double_edit_waiting (self, conver):
         await conver.wait_event(events.MessageEdited(from_users=self.bot))
         try:
@@ -47,7 +47,6 @@ class User():
 
     async def wait_after_action(self):
         async with self.client.conversation(self.bot) as conv:
-            # edit = conv.wait_event(events.MessageEdited(from_users=self.bot))
             edit = asyncio.create_task(self.double_edit_waiting(conv))
             deleted = asyncio.create_task(self.double_new_waiting(conv))
             await asyncio.wait([edit, deleted], return_when='FIRST_COMPLETED')
@@ -59,8 +58,8 @@ class User():
                     await conv.wait_event(events.NewMessage(from_users=self.bot))
                 except:
                     logger.error("could not wait")
-    async def async_click_button(self, tex):
-        messages = await self.last_messages()
+    async def async_click_button(self, tex, mess = 2):
+        messages = await self.last_messages(quantity=mess)
         button = find_button(messages, tex)
         message = self.get_last_message()
         event = button.click()
@@ -75,8 +74,12 @@ class User():
         message = await self.get_last_message()
         self.message = message.text
 
-    async def async_check_message(self, search_text):
-        messages = await self.last_messages()
+    async def async_get_messages(self, n):
+        messages = await self.last_messages(quantity=n)
+        self.messages = messages
+
+    async def async_check_message(self, search_text, mess_quant=2):
+        messages = await self.last_messages(quantity=mess_quant)
         self.check_text = False
         for message in messages:
             if search_text in message.text:
@@ -99,16 +102,31 @@ class User():
         last_name = profile.last_name + ' ' if profile.last_name else ''
         self.profile_data = first_name + last_name + username
 
-    async def async_button_is_disappeared(self, button_name):
-        messages = await self.last_messages()
+    async def async_button_is_disappeared(self, button_name, mess_quant):
+        messages = await self.last_messages(quantity=mess_quant)
         button = find_button(messages, button_name)
         self.check_disappeared_button = True if button == None else False
 
+    async def async_immutable_after_click(self, button_name, mess_quant):
+        messages = await self.last_messages(quantity=mess_quant)
+        button = find_button(messages, button_name)
+        message_before = messages[0].text
+        """click the button"""
+        cork = self.get_last_message()
+        event = button.click()
+        await asyncio.wait({event, cork}, return_when='FIRST_COMPLETED')
+        """------------------------------------------------------------"""
+        await asyncio.sleep(2)
+        messages = await self.last_messages(quantity=mess_quant)
+        message_after = messages[0].text
+        self.immutable_after_click_result = True if message_before==message_after else False
+
+
 
     """functions for step files"""
-    def click_button(self, tex):
+    def click_button(self, tex, mess_quant=2):
         with self.client:
-            self.client.loop.run_until_complete(self.async_click_button(tex))
+            self.client.loop.run_until_complete(self.async_click_button(tex, mess_quant))
 
     def send_message(self, message_text):
         with self.client:
@@ -117,11 +135,16 @@ class User():
     def get_message(self):
         with self.client:
             self.client.loop.run_until_complete(self.async_get_message())
-            return self.message
+        return self.message
 
-    def check_message(self, search_text):
+    def get_messages(self, n=2 ):
         with self.client:
-            self.client.loop.run_until_complete(self.async_check_message(search_text))
+            self.client.loop.run_until_complete(self.async_get_messages(n))
+            return self.messages
+
+    def check_message(self, search_text,mess_quant=2):
+        with self.client:
+            self.client.loop.run_until_complete(self.async_check_message(search_text, mess_quant=mess_quant))
         return self.check_text
 
     def check_message_code(self, code):
@@ -135,10 +158,13 @@ class User():
             self.client.loop.run_until_complete(self.async_get_profile_fl_name_username())
         return self.profile_data
 
-    def button_is_disappeared(self, button_name):
+    def button_is_disappeared(self, button_name, mess_quant=2):
         with self.client:
-            self.client.loop.run_until_complete(self.async_button_is_disappeared(button_name))
+            self.client.loop.run_until_complete(self.async_button_is_disappeared(button_name, mess_quant=mess_quant))
         return self.check_disappeared_button
 
-
+    def immutable_after_click(self, button_name, mess_quant=2):
+        with self.client:
+            self.client.loop.run_until_complete(self.async_immutable_after_click(button_name, mess_quant=mess_quant))
+        return self.immutable_after_click_result
 

@@ -12,8 +12,6 @@ def step_impl(context):
     for message in messages:
         if message.text.startswith(context.list_info_ticket[0]):
             assert check_message_by_list(message.text, context.list_info_ticket)
-    # with open('C:/Users/wsu/Desktop/ttt.txt','a') as file:
-    #     file.write(str(context.list_info_ticket)+'\n'+message.text)
 
 @step("ops check message: -{message}-")
 def step_impl(context, message):
@@ -42,8 +40,6 @@ def step_impl(context, message):
         context.list_info_ticket.append('Коммент от '+result.group(0)[1:-1]+': comment')
     else:
         context.list_info_ticket.append(message+profile)
-    # with open('C:/Users/wsu/Desktop/ttt.txt','a') as file:
-    #     file.write(str(context.list_info_ticket)+'\n')
 
 @step("ops choose a category of ticket")
 def step_impl(context):
@@ -99,3 +95,7 @@ def step_impl(context):
         if message.text == message_ops1:
             message_ops2 = message.text
     assert message_ops1==message_ops2
+@step("ops check empty message : -{message}-")
+def step_impl(context, message):
+    agent = User(context.ops1, context.bot[0])
+    assert agent.check_message(message, mess_quant=2) is False

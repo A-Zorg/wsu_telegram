@@ -21,8 +21,6 @@ def step_impl(context, message):
         context.list_info_ticket.append('Коммент от '+result.group(0)[1:-1]+': comment')
     else:
         context.list_info_ticket.append(message+profile)
-    # with open('C:/Users/wsu/Desktop/ttt.txt','a', encoding='utf-8') as file:
-    #     file.write(str(context.list_info_ticket)+'\n')
 
 @step("sd click the button -{button}- {quantity}")
 def step_impl(context, button, quantity):

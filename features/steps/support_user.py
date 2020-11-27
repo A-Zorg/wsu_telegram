@@ -5,10 +5,6 @@ from base.functions import check_message_by_list
 import re
 logger = LogGen.loggen()
 
-@step("user check list")
-def step_impl(context):
-    with open('C:/Users/wsu/Desktop/ttt.txt','a') as file:
-        file.write(str(context.list_info_ticket))
 
 @step("user click the button -{button}-")
 def step_impl(context, button):
@@ -60,8 +56,6 @@ def step_impl(context, message):
 def step_impl(context):
     user = User(context.user, context.bot[0])
     message = user.get_message()
-    # with open('C:/Users/wsu/Desktop/ttt.txt','a') as file:
-    #     file.write(str(message)+'\n'+str(context.list_info_ticket))
     if message.startswith(context.list_info_ticket[0]):
         assert check_message_by_list(message, context.list_info_ticket)
     else:

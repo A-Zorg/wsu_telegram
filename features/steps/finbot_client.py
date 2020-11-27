@@ -14,7 +14,6 @@ def step_impl(context, message):
     client = User(context.client, context.bot[0])
     client.send_message(message)
 
-
 @step("client get a ticket number")
 def step_impl(context):
     client = User(context.client, context.bot[0])
@@ -48,7 +47,5 @@ def step_impl(context, message, code):
 
 @given("client send message -{message}-")
 def step_impl(context, message):
-    # with open('C:/Users/wsu/Desktop/ttt.txt','a') as file:
-    #     file.write(str(context.bot))
     client = User(context.client, context.bot[0])
     client.send_message(message)

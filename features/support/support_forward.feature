@@ -7,23 +7,23 @@ Feature: support forward
      And background create list_info_ticket: message is -message-
 
 
-   Scenario Outline: forward 1
-     Given ops click the button -Передать в SD- 3
-      And ops click the button -🐞 Bug- 3
-      And interuser pause
-      And sd add event to list_info_ticket: -OPS ➡ ️SD-
-      And sd click the button -<button>- 3
-      And sd click the button -Да- 3
-      And sd add event to list_info_ticket: -<var>-
-      And interuser pause
-     When <role> click the button -Взять тикет- 3
-     Then <role> check data of ticket
-      And <role> click the button -Закрыть тикет- 3
-      And <role> click the button -Да- 3
-     Examples: forward 1
-        |  button               |role  |var           |
-        |  Передать в Support   |ops   | SD ➡ ️OPS  |
-        |  Передать в IT        |it    | SD ➡ ️IT   |
+#   Scenario Outline: forward 1
+#     Given ops click the button -Передать в SD- 3
+#      And ops click the button -🐞 Bug- 3
+#      And interuser pause
+#      And sd add event to list_info_ticket: -OPS ➡ ️SD-
+#      And sd click the button -<button>- 3
+#      And sd click the button -Да- 3
+#      And sd add event to list_info_ticket: -<var>-
+#      And interuser pause
+#     When <role> click the button -Взять тикет- 3
+#     Then <role> check data of ticket
+#      And <role> click the button -Закрыть тикет- 3
+#      And <role> click the button -Да- 3
+#     Examples: forward 1
+#        |  button               |role  |var           |
+#        |  Передать в Support   |ops   | SD ➡ ️OPS  |
+#        |  Передать в IT        |it    | SD ➡ ️IT   |
 
   Scenario Outline: forward 2
      Given ops click the button -Передать в IT- 3
@@ -96,10 +96,10 @@ Feature: support forward
       And <role> click the button -Взять тикет- 3
       And <role> add event to list_info_ticket: -Тикет принял: -
       And <role> check data of ticket
-      When <role> click the button -Фото и место- 3
-       And <role> check photo or another media
-       And <role> click the button -Закрыть тикет- 3
-       And <role> click the button -Да- 3
+     When <role> click the button -Фото и место- 3
+      And <role> check photo or another media
+      And <role> click the button -Закрыть тикет- 3
+      And <role> click the button -Да- 3
 
 
      Examples: forward 5

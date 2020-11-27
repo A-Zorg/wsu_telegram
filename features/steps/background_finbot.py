@@ -18,7 +18,5 @@ def step_impl(context, button):
 
 @step("client send message -{message}- (background)")
 def step_impl(context, message):
-    # with open('C:/Users/wsu/Desktop/ttt.txt','a') as file:
-    #     file.write(str(context.bot))
     client = User(context.client, context.bot[0])
     client.send_message(message)

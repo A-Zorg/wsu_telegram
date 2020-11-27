@@ -1,5 +1,5 @@
 @sd_test3_bot
-Feature: support comment
+Feature: support interaction
 
   Background: base
     Given background send message -/start-
@@ -7,7 +7,7 @@ Feature: support comment
      And background create list_info_ticket: message is -message-
 
 
-  Scenario: 10sec block
+  Scenario: 10 sec block
     Given ops click the button -Взять тикет- 2
      And user pause 2
     When ops2 try to click: -Перехватить тикет-
@@ -88,11 +88,11 @@ Feature: support comment
       And <role> check message: -Добавьте комментарий-
       And <role> send message -comment-
       And <role> check message: -Комментарий добавлен-
-      When <role> add event to list_info_ticket: -Коммент от -
-       And <role> click the button -Закрыть тикет- 4
-       And <role> click the button -Да- 4
-       And user click the button -Посмотреть тикет-
-      Then user check data of ticket
+     When <role> add event to list_info_ticket: -Коммент от -
+      And <role> click the button -Закрыть тикет- 4
+      And <role> click the button -Да- 4
+      And user click the button -Посмотреть тикет-
+     Then user check data of ticket
      Examples: forward 5
         |  button_1               |role  |var           | button_2  |
         |  Передать в SD          |sd    | OPS ➡ ️SD  |  🐞 Bug    |

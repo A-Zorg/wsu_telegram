@@ -5,10 +5,11 @@ Feature: support take ticket
     Given background send message -/start-
      And background send message -message-
      And background create list_info_ticket: message is -message-
+     And pause 2
 
   Scenario: ops take
     When ops click the button -Взять тикет- 3
-    And ops add event to list_info_ticket: -Тикет принял: -
+     And ops add event to list_info_ticket: -Тикет принял: -
     Then user after taking the ticket check the message
      And user empty button -Отменить тикет-
      And  ops click the button -Закрыть тикет- 3
@@ -45,7 +46,7 @@ Feature: support take ticket
      And it click the button -Закрыть тикет- 3
      And it click the button -Да- 3
 
-    Scenario: ops take -> sd take
+  Scenario: ops take -> sd take
     When ops click the button -Взять тикет- 3
      And ops add event to list_info_ticket: -Тикет принял: -
      But user after taking the ticket check the message

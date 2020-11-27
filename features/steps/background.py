@@ -7,8 +7,6 @@ import time
 
 @step("background send message -{message}-")
 def step_impl(context, message):
-    # with open('C:/Users/wsu/Desktop/ttt.txt','a') as file:
-    #     file.write(str(context.ticket_number))
     client = User(context.user, context.bot[0])
     client.send_message(message)
 
@@ -22,10 +20,15 @@ def step_impl(context, message):
 
 @step("interuser pause")
 def step_impl(context):
-    time.sleep(1.5)
+    time.sleep(3)
 
 @step("user pause {sec}")
 def step_impl(context, sec):
     time.sleep(float(sec))
+
+@step("pause {sec}")
+def step_impl(context, sec):
+    time.sleep(float(sec))
+
 
 

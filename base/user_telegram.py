@@ -20,74 +20,71 @@ class User():
         self.bot = bot
         self.loop = asyncio.get_event_loop()
 
-
-
-
-    async def get_last_message(self):
+    async def __get_last_message(self):
         message = await self.client.get_messages(self.bot, limit=1)
         return message[0]
 
-    async def last_messages(self, quantity=2):
+    async def __last_messages(self, quantity=2):
         messages = await self.client.get_messages(self.bot, limit=quantity)
         return messages
 
-    async def double_new_waiting (self, conver):
+    async def __double_new_waiting (self, conver):
         await conver.wait_event(events.NewMessage(from_users=self.bot))
         try:
             await conver.wait_event(events.NewMessage(from_users=self.bot), timeout=3)
         except:
             pass
 
-    async def double_edit_waiting (self, conver):
+    async def __double_edit_waiting (self, conver):
         await conver.wait_event(events.MessageEdited(from_users=self.bot))
         try:
             await conver.wait_event(events.MessageEdited(from_users=self.bot), timeout=2)
         except:
             pass
 
-    async def wait_after_action(self):
+    async def __wait_after_action(self):
         async with self.client.conversation(self.bot) as conv:
-            edit = asyncio.create_task(self.double_edit_waiting(conv))
-            deleted = asyncio.create_task(self.double_new_waiting(conv))
+            edit = asyncio.create_task(self.__double_edit_waiting(conv))
+            deleted = asyncio.create_task(self.__double_new_waiting(conv))
             await asyncio.wait([edit, deleted], return_when='FIRST_COMPLETED')
 
-    async def wait_after_sending_message(self, amount=2):
+    async def __wait_after_sending_message(self, amount=2):
         async with self.client.conversation(self.bot) as conv:
             for i in range(amount):
                 try:
                     await conv.wait_event(events.NewMessage(from_users=self.bot))
                 except:
                     logger.error("could not wait")
-    async def async_click_button(self, tex, mess = 2):
-        messages = await self.last_messages(quantity=mess)
+    async def __async_click_button(self, tex, mess = 2):
+        messages = await self.__last_messages(quantity=mess)
         button = find_button(messages, tex)
-        message = self.get_last_message()
+        message = self.__get_last_message()
         event = button.click()
         await asyncio.wait({event, message},return_when='FIRST_COMPLETED' )
-        await self.wait_after_action()
+        await self.__wait_after_action()
 
-    async def async_send_message(self, message):
+    async def __async_send_message(self, message):
         await self.client.send_message(self.bot, message)
-        await self.wait_after_action()
+        await self.__wait_after_action()
 
-    async def async_get_message(self):
-        message = await self.get_last_message()
+    async def __async_get_message(self):
+        message = await self.__get_last_message()
         self.message = message.text
 
-    async def async_get_messages(self, n):
-        messages = await self.last_messages(quantity=n)
+    async def __async_get_messages(self, n):
+        messages = await self.__last_messages(quantity=n)
         self.messages = messages
 
-    async def async_check_message(self, search_text, mess_quant=2):
-        messages = await self.last_messages(quantity=mess_quant)
+    async def __async_check_message(self, search_text, mess_quant=2):
+        messages = await self.__last_messages(quantity=mess_quant)
         self.check_text = False
         for message in messages:
             if search_text in message.text:
                 self.check_text = True
                 return
 
-    async def async_check_message_code(self, code):
-        messages = await self.last_messages()
+    async def __async_check_message_code(self, code):
+        messages = await self.__last_messages()
         self.check_text = False
         search_text = find_text_from_table(int(code))
         for message in messages:
@@ -95,29 +92,29 @@ class User():
                 self.check_text = True
                 return
 
-    async def async_get_profile_fl_name_username(self):
+    async def __async_get_profile_fl_name_username(self):
         profile = await self.client.get_me()
         username = '(@' + profile.username + ')' if profile.username else '()'
         first_name = profile.first_name + ' ' if profile.first_name else ''
         last_name = profile.last_name + ' ' if profile.last_name else ''
         self.profile_data = first_name + last_name + username
 
-    async def async_button_is_disappeared(self, button_name, mess_quant):
-        messages = await self.last_messages(quantity=mess_quant)
+    async def __async_button_is_disappeared(self, button_name, mess_quant):
+        messages = await self.__last_messages(quantity=mess_quant)
         button = find_button(messages, button_name)
         self.check_disappeared_button = True if button == None else False
 
-    async def async_immutable_after_click(self, button_name, mess_quant):
-        messages = await self.last_messages(quantity=mess_quant)
+    async def __async_immutable_after_click(self, button_name, mess_quant):
+        messages = await self.__last_messages(quantity=mess_quant)
         button = find_button(messages, button_name)
         message_before = messages[0].text
         """click the button"""
-        cork = self.get_last_message()
+        cork = self.__get_last_message()
         event = button.click()
         await asyncio.wait({event, cork}, return_when='FIRST_COMPLETED')
         """------------------------------------------------------------"""
         await asyncio.sleep(2)
-        messages = await self.last_messages(quantity=mess_quant)
+        messages = await self.__last_messages(quantity=mess_quant)
         message_after = messages[0].text
         self.immutable_after_click_result = True if message_before==message_after else False
 
@@ -126,45 +123,45 @@ class User():
     """functions for step files"""
     def click_button(self, tex, mess_quant=2):
         with self.client:
-            self.client.loop.run_until_complete(self.async_click_button(tex, mess_quant))
+            self.client.loop.run_until_complete(self.__async_click_button(tex, mess_quant))
 
     def send_message(self, message_text):
         with self.client:
-            self.client.loop.run_until_complete(self.async_send_message(message_text))
+            self.client.loop.run_until_complete(self.__async_send_message(message_text))
 
     def get_message(self):
         with self.client:
-            self.client.loop.run_until_complete(self.async_get_message())
+            self.client.loop.run_until_complete(self.__async_get_message())
         return self.message
 
-    def get_messages(self, n=2 ):
+    def get_messages(self, quantity_mess=2 ):
         with self.client:
-            self.client.loop.run_until_complete(self.async_get_messages(n))
+            self.client.loop.run_until_complete(self.__async_get_messages(quantity_mess))
             return self.messages
 
     def check_message(self, search_text,mess_quant=2):
         with self.client:
-            self.client.loop.run_until_complete(self.async_check_message(search_text, mess_quant=mess_quant))
+            self.client.loop.run_until_complete(self.__async_check_message(search_text, mess_quant=mess_quant))
         return self.check_text
 
     def check_message_code(self, code):
         with self.client:
-            self.client.loop.run_until_complete(self.async_check_message_code(code))
+            self.client.loop.run_until_complete(self.__async_check_message_code(code))
         return self.check_text
 
     def get_profile_fl_name_username(self):
         """" gives first? last name and username of user"""
         with self.client:
-            self.client.loop.run_until_complete(self.async_get_profile_fl_name_username())
+            self.client.loop.run_until_complete(self.__async_get_profile_fl_name_username())
         return self.profile_data
 
     def button_is_disappeared(self, button_name, mess_quant=2):
         with self.client:
-            self.client.loop.run_until_complete(self.async_button_is_disappeared(button_name, mess_quant=mess_quant))
+            self.client.loop.run_until_complete(self.__async_button_is_disappeared(button_name, mess_quant=mess_quant))
         return self.check_disappeared_button
 
     def immutable_after_click(self, button_name, mess_quant=2):
         with self.client:
-            self.client.loop.run_until_complete(self.async_immutable_after_click(button_name, mess_quant=mess_quant))
+            self.client.loop.run_until_complete(self.__async_immutable_after_click(button_name, mess_quant=mess_quant))
         return self.immutable_after_click_result
 

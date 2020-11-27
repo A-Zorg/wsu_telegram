@@ -33,6 +33,6 @@ Feature: support close ticket
     When user click the button -Посмотреть тикет-
     Then user check data of ticket
      And user empty button -Посмотреть тикет-
-     But user click the button -5x-
-     But user click the button -Добавить комментарий-
-     And user send message -/cancel-
+     And user click the button -5x-
+     And user click the button -Добавить комментарий-
+     But user send message -/cancel-

@@ -24,13 +24,13 @@ Feature: support close ticket
       And ops check message: -Выберите категорию по тикету-
      Then ops choose a category of ticket
         |  button         |  answer  |
-        |  Takion         |  Нет  |
-        |  eSignal        |  Нет  |
-        |  Sterling       |  Нет  |
-        |  ECHO           |  Нет  |
-        |  Services       |  Нет  |
-        |  Subscriptions  |  Нет  |
-        |  Other          |  Да   |
+        |  Takion         |  Нет     |
+        |  eSignal        |  Нет     |
+        |  Sterling       |  Нет     |
+        |  ECHO           |  Нет     |
+        |  Services       |  Нет     |
+        |  Subscriptions  |  Нет     |
+        |  Other          |  Да      |
       And ops check message: -Успешно сохранено!-
 
   Scenario: sd close ticket

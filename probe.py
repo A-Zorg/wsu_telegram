@@ -2,6 +2,7 @@ from telethon import TelegramClient, events
 import os
 import asyncio
 import pyexcel
+import random
 import re
 
 """"script to parse bot's answers"""
@@ -10,12 +11,12 @@ import re
 ops2_dict = eval(os.environ.get('flash'))
 # sd1_dict = eval(os.environ.get('seagal'))
 # sd2_dict = eval(os.environ.get('wonder'))
-# it1_dict = eval(os.environ.get('batman'))
+it1_dict = eval(os.environ.get('batman'))
 # it2_dict = eval(os.environ.get('green'))
 #
 flash = TelegramClient('flash', ops2_dict['api_id'] , ops2_dict['api_hash']).start()
 # TelegramClient('wonder', sd2_dict['api_id'] , sd2_dict['api_hash']).start()
-# TelegramClient('batman', it1_dict['api_id'] , it1_dict['api_hash']).start()
+batman = TelegramClient('batman', it1_dict['api_id'] , it1_dict['api_hash'])
 # TelegramClient('green', it2_dict['api_id'] , it2_dict['api_hash']).start()
 
 
@@ -117,7 +118,7 @@ def find_button( messages, button_name):
             continue
         for butt_row in message.buttons:
             for button in butt_row:
-                if button_name in button.text:
+                if re.search(button_name,button.text ):
                     return button
 
 def table_save(event, func, button):
@@ -192,10 +193,17 @@ libra = []
 
 async def main():
 
-    mess = await agent.get_messages(support_bot, limit=1)
-    print(mess[0].text)
-    print(
-        'Ваш тикет из ⚡️ Smart.Support: messageFrom: Сильвестр Сталлоне (@smart_team_999)' == 'Ваш тикет из ⚡️ Smart.Support:messageFrom: Сильвестр Сталлоне (@smart_team_999)')
+    mess = await batman.get_messages('sd_test4_bot', limit=2)
+    number = random.randint(2,28)
+    ho_1 = '^{}$'.format(number)
+    button_1 = find_button(mess, ho_1)
+    number_2 = random.randint(number,28)
+    ho_2 = '^{}$'.format(number_2)
+    button_2 = find_button(mess, ho_2)
+    print(button_1.text)
+    print(button_2.text)
+    # print(
+    #     'Ваш тикет из ⚡️ Smart.Support: messageFrom: Сильвестр Сталлоне (@smart_team_999)' == 'Ваш тикет из ⚡️ Smart.Support:messageFrom: Сильвестр Сталлоне (@smart_team_999)')
     # for button_x in mess[0].buttons:
     #     for button in button_x:
     #         print(button.text)
@@ -205,9 +213,9 @@ async def handler(event):
     # print(event.buttons[0][0].text)
     print('Ваш тикет из ⚡️ Smart.Support: messageFrom: Сильвестр Сталлоне (@smart_team_999)'=='Ваш тикет из ⚡️ Smart.Support:messageFrom: Сильвестр Сталлоне (@smart_team_999)')
 
-#
-with agent:
-    agent.loop.run_until_complete(main())
+
+with batman:
+    batman.loop.run_until_complete(main())
 
 
 
@@ -218,11 +226,14 @@ with agent:
 # print(bin(4096))
 #
 #
-# print(int("0b11111000000000000000000110000100001", 2))
-
-
-
-
+# print(int("0b110000000000000", 2))
+#
+#
+#
+# print(bin(33285999649))
+# print(bin(2050))
+# print(bin(3221228548))
+# print(bin(127))
 
 
 

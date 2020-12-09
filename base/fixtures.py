@@ -58,3 +58,17 @@ def space(context):
     context.project = context.user
     context.cyprus = context.user
     yield
+
+
+@fixture()
+def risk(context):
+    user_dict = eval(os.environ.get('stalone'))
+    risk1_dict = eval(os.environ.get('chan'))
+    risk2_dict = eval(os.environ.get('seagal'))
+
+
+    context.user = TelegramClient('stalone', user_dict['api_id'], user_dict['api_hash'])
+    context.risk_1 = TelegramClient('chan', risk1_dict['api_id'], risk1_dict['api_hash'])
+    context.risk_2 = TelegramClient('seagal', risk2_dict['api_id'], risk2_dict['api_hash'])
+
+    yield

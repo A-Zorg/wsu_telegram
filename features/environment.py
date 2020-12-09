@@ -1,11 +1,12 @@
 from behave import use_fixture
-from base.fixtures import finbot, support, space
+from base.fixtures import finbot, support, space, risk
 from allure_behave.hooks import allure_report
 
 bot_fixture_dict = {
                 'sd_test3_bot' : 'support',
                 'sd_test12_bot' : 'finbot',
                 'sd_test4_bot' : 'space',
+                'sd_test8_bot' : 'risk'
 }
 
 """turn on fixture for each feature"""

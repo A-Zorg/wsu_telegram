@@ -2,7 +2,7 @@ from telethon import events
 import asyncio
 from base.functions import  find_button, find_text_from_table
 from utiles.logger_file import LogGen
-
+import re
 logger = LogGen.loggen()
 
 class User():
@@ -62,6 +62,13 @@ class User():
         event = button.click()
         await asyncio.wait({event, message},return_when='FIRST_COMPLETED' )
         await self.__wait_after_action()
+    async def __async_click_button_wit4sec_waiting(self, tex, mess = 2):
+        messages = await self.__last_messages(quantity=mess)
+        button = find_button(messages, tex)
+        message = self.__get_last_message()
+        event = button.click()
+        await asyncio.wait({event, message},return_when='FIRST_COMPLETED' )
+        await asyncio.sleep(4)
 
     async def __async_send_message(self, message):
         await self.client.send_message(self.bot, message)
@@ -79,7 +86,7 @@ class User():
         messages = await self.__last_messages(quantity=mess_quant)
         self.check_text = False
         for message in messages:
-            if search_text in message.text:
+            if re.search(pattern=search_text,string=message.text):
                 self.check_text = True
                 return
 
@@ -118,12 +125,17 @@ class User():
         message_after = messages[0].text
         self.immutable_after_click_result = True if message_before==message_after else False
 
-
-
+    async def __async_send_file(self, file):
+        await self.client.send_file(entity=self.bot, file=file, force_document=True)
+        await self.__wait_after_action()
     """functions for step files"""
     def click_button(self, tex, mess_quant=2):
         with self.client:
             self.client.loop.run_until_complete(self.__async_click_button(tex, mess_quant))
+
+    def click_button_wit4sec_waiting(self, tex, mess_quant=2):
+        with self.client:
+            self.client.loop.run_until_complete(self.__async_click_button_wit4sec_waiting(tex, mess_quant))
 
     def send_message(self, message_text):
         with self.client:
@@ -150,7 +162,7 @@ class User():
         return self.check_text
 
     def get_profile_fl_name_username(self):
-        """" gives first? last name and username of user"""
+        """" gives first, last name and username of user"""
         with self.client:
             self.client.loop.run_until_complete(self.__async_get_profile_fl_name_username())
         return self.profile_data
@@ -165,3 +177,6 @@ class User():
             self.client.loop.run_until_complete(self.__async_immutable_after_click(button_name, mess_quant=mess_quant))
         return self.immutable_after_click_result
 
+    def send_file(self, file):
+        with self.client:
+            self.client.loop.run_until_complete(self.__async_send_file(file))

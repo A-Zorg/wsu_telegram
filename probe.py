@@ -4,7 +4,7 @@ import asyncio
 import pyexcel
 import random
 import re
-
+import datetime
 """"script to parse bot's answers"""
 # client_dict = eval(os.environ.get('stalone'))
 # ops1_dict = eval(os.environ.get('chan'))
@@ -30,7 +30,7 @@ support_bot = 'sd_test3_bot'
 client = TelegramClient('stalone', client_dict['api_id'] , client_dict['api_hash'])
 agent = TelegramClient('chan', agent_dict['api_id'], agent_dict['api_hash'])
 another_agent = TelegramClient('seagal', another_agent_dict['api_id'] , another_agent_dict['api_hash'])
-client.start()
+
 
 """create scenarios"""
 asd=[]
@@ -191,17 +191,40 @@ async def wait(client, bot = support_bot):
 libra = []
 
 
-async def main():
+def get_random_month_day(min=2, max=28):
+    return random.randint(min, max)
 
-    mess = await batman.get_messages('sd_test4_bot', limit=2)
-    number = random.randint(2,28)
-    ho_1 = '^{}$'.format(number)
-    button_1 = find_button(mess, ho_1)
-    number_2 = random.randint(number,28)
-    ho_2 = '^{}$'.format(number_2)
-    button_2 = find_button(mess, ho_2)
-    print(button_1.text)
-    print(button_2.text)
+async def main():
+    mess = await client.get_messages('@sd_test8_bot', limit=4)
+    # # for i in mess[0].buttons:
+    # #     print(i[0].text)
+    # # print(mess[0].media.to_dict()['document']['thumbs'][1])
+    # print(dir(mess[3].media.document))
+    # print(mess[3].media.document.thumbs[1])
+    # messs = await agent.get_messages('@sd_test8_bot', limit=4)
+    # print(messs[3].media.document.thumbs[1])
+    # print(messs[3].media.document.thumbs==mess[3].media.document.thumbs)
+
+
+    for i in await another_agent.get_dialogs():
+        if i.name == 'Risk Group for missed tickets':
+            print(dir(i))
+            print(i.entity)
+            a=await another_agent.get_messages('Risk Group for missed tickets', limit=2)
+            print(a[0].buttons[1][0].text)
+    # await another_agent.get_entity('Risk Group for missed tickets')
+    # await another_agent.get_entity('Risk Group for missed tickets')
+    # print(' '.join('Risk Group for missed tickets'.split()))
+
+    # print(getattr(li., '[0,2]'))
+    # number = random.randint(2,28)
+    # ho_1 = '^{}$'.format(number)
+    # button_1 = find_button(mess, ho_1)
+    # number_2 = random.randint(number,28)
+    # ho_2 = '^{}$'.format(number_2)
+    # button_2 = find_button(mess, ho_2)
+    # print(button_1.text)
+    # print(button_2.text)
     # print(
     #     'Ваш тикет из ⚡️ Smart.Support: messageFrom: Сильвестр Сталлоне (@smart_team_999)' == 'Ваш тикет из ⚡️ Smart.Support:messageFrom: Сильвестр Сталлоне (@smart_team_999)')
     # for button_x in mess[0].buttons:
@@ -212,30 +235,30 @@ async def handler(event):
     print('sdfasdf')
     # print(event.buttons[0][0].text)
     print('Ваш тикет из ⚡️ Smart.Support: messageFrom: Сильвестр Сталлоне (@smart_team_999)'=='Ваш тикет из ⚡️ Smart.Support:messageFrom: Сильвестр Сталлоне (@smart_team_999)')
+another_agent.start()
+with client:
+    client.loop.run_until_complete(main())
+# with batman:
+#     batman.loop.run_until_complete(main())
 
+# print('Дата от: {0}-{1}-{2} 00:00:00'.format(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day))
+# print(type(datetime.date.today().year))
 
-with batman:
-    batman.loop.run_until_complete(main())
-
-
-
-# print(bin(33285999655))
-# print(bin(3221228548))
-# print(bin(33285999649))
+# print(bin(33319582759))
+# print(bin(33319554080))
 # print(bin(33319551009))
-# print(bin(4096))
-#
-#
-# print(int("0b110000000000000", 2))
-#
-#
-#
-# print(bin(33285999649))
+# # print(bin(33319551009))
+# # print(bin(4096))
+# #
+# #
+# print(int("0b100000010000000000110000000000000", 2))
+# #
+# #
+# #
+# print(bin(24576))
 # print(bin(2050))
-# print(bin(3221228548))
-# print(bin(127))
-
-
+# print(bin(3221229572))
+# print(bin(2050))
 
 
 

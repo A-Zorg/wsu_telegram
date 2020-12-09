@@ -10,7 +10,7 @@ Feature: space close ticket
   Scenario Outline: pr or hr close ticket
     Given lvl1_1 click the button -<button_1>- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 2
+     And pause 3
      And <role> - add event to list_info_ticket: -<var>-
      And <role> click the button -Взять тикет- quantity 2
      And <role> - add event to list_info_ticket: -Тикет принял: -

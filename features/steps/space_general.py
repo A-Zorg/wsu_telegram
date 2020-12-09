@@ -1,8 +1,9 @@
 from behave import *
 from base.user_telegram import User
 from utiles.logger_file import LogGen
-from base.functions import check_message_by_list
+from base.functions import check_message_by_list, get_random_month_day
 import re
+import datetime
 logger = LogGen.loggen()
 
 """"""
@@ -44,8 +45,8 @@ def step_impl(context, role, number):
 
     for message in messages:
         if message.text.startswith(context.list_info_ticket[0]):
-            with open('C:/Users/wsu/Desktop/ttt.txt', 'a', encoding='utf-8') as file:
-                file.write(str(context.list_info_ticket) + '\n' + str(message.text))
+            # with open('C:/Users/wsu/Desktop/ttt.txt', 'a', encoding='utf-8') as file:
+            #     file.write(str(context.list_info_ticket) + '\n' + str(message.text))
             assert check_message_by_list(message.text, context.list_info_ticket)
 
 @step("{role} check data of tickets in ticket_bot # {bot:Number}")
@@ -92,13 +93,16 @@ def step_impl(context, role, message):
     context_role = eval(role_dict[role])
     client = User(context_role, context.bot[0])
     profile = client.get_profile_fl_name_username()
-    if '➡' in message:
-        context.list_info_ticket.append(message)
-    elif 'Коммент от' in message:
+    # if 'Дата' in message:
+    #     'Дата от: 2020-11-05 00:00:00'
+    #     context.list_info_ticket.append(message)
+    if 'Коммент от' in message:
         result = re.search(r'(\(.+\))', profile)
         context.list_info_ticket.append('Коммент от '+result.group(0)[1:-1]+': comment')
-    else:
+    elif 'Тикет принял:' in message or 'Task closed:' in message:
         context.list_info_ticket.append(message+profile)
+    else:
+        context.list_info_ticket.append(message)
 
 @step("{role} - check photo or another media")
 def step_impl(context, role):
@@ -109,3 +113,28 @@ def step_impl(context, role):
         assert True
     else:
         assert False
+
+@step("{role} - choose {variant} time interval")
+def step_impl(context, role, variant):
+    context_role = eval(role_dict[role])
+    agent = User(context_role, context.bot[0])
+    current_data = datetime.date.today()
+
+    if variant == 'correct':
+        first_number = get_random_month_day()
+        second_number = get_random_month_day(min=first_number)
+    elif variant == 'incorrect':
+        first_number = get_random_month_day()
+        second_number = get_random_month_day(max=first_number-1)
+
+    date_from = 'Дата от: {0}-{1}-{2} 00:00:00'.format(current_data.year, str(current_data.month).zfill(2),str(first_number).zfill(2))
+    date_till = 'Дата до: {0}-{1}-{2} 00:00:00'.format(current_data.year, str(current_data.month).zfill(2),str(second_number).zfill(2))
+
+    agent.click_button('^{}$'.format(first_number), mess_quant=2)
+    assert agent.check_message(date_from, mess_quant=1)
+    with open('C:/Users/wsu/Desktop/ttt.txt', 'a', encoding='utf-8') as file:
+        file.write(str(agent.get_message()) + '\n' + str(date_from)+ '\n')
+    agent.click_button('^{}$'.format(second_number), mess_quant=2)
+    assert agent.check_message(date_till, mess_quant=1)
+    with open('C:/Users/wsu/Desktop/ttt.txt', 'a', encoding='utf-8') as file:
+        file.write(str(agent.get_message()) + '\n' + str(date_till)+ '\n')

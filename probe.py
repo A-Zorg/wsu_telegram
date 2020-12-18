@@ -235,9 +235,9 @@ async def handler(event):
     print('sdfasdf')
     # print(event.buttons[0][0].text)
     print('Ваш тикет из ⚡️ Smart.Support: messageFrom: Сильвестр Сталлоне (@smart_team_999)'=='Ваш тикет из ⚡️ Smart.Support:messageFrom: Сильвестр Сталлоне (@smart_team_999)')
-another_agent.start()
-with client:
-    client.loop.run_until_complete(main())
+# another_agent.start()
+# with client:
+#     client.loop.run_until_complete(main())
 # with batman:
 #     batman.loop.run_until_complete(main())
 
@@ -261,7 +261,7 @@ with client:
 # print(bin(2050))
 
 
-
+print(eval('[0]'))
 
 
 

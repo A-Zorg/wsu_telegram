@@ -123,3 +123,14 @@ def step_impl(context,role, checklist, number):
     for i in checklist:
         assert check_message_by_list(message.text, context.list_info_ticket[i])
 
+@step("risk {role} click the button -{button}- in SupportBot #message:{number:Number}")
+def step_impl(context, role, button, number):
+    context_role = eval(role_dict[role])
+    client = User(context_role, context.bot[2])
+    client.click_button(button,mess_quant=number)
+
+@step("risk {role} check message : -{message}- in SupportBot #message:{number:Number}")
+def step_impl(context, role, message, number):
+    context_role = eval(role_dict[role])
+    agent = User(context_role, context.bot[2])
+    assert agent.check_message(message, mess_quant=number)

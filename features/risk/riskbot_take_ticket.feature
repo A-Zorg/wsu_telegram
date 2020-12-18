@@ -1,5 +1,5 @@
 @sd_test8_bot @Risk_Group_for_missed_tickets
-Feature: space create cancel
+Feature: space take ticket
 
   Background: base
     Given background send message -/start-

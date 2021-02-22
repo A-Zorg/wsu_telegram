@@ -1,8 +1,7 @@
 from behave import *
 from base.user_telegram import User
-from utiles.logger_file import LogGen
-# use_step_matcher("re")
-logger = LogGen.loggen()
+
+"""base steps in Finbot"""
 
 @given("client clicks a set of buttons")
 def step_impl(context):

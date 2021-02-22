@@ -120,7 +120,7 @@ def table_save(event, func, button):
     }
     if dic not in asd:
         asd.append(dic)
-    pyexcel.save_as(records=asd, dest_file_name="bot_file.xls")
+    pyexcel.save_as(records=asd, dest_file_name="../utiles/bot_file.xls")
 
 
 @client.on(events.NewMessage(from_users='AlexZatushevskiy', pattern=r'(?i)start'))

@@ -1,17 +1,18 @@
 from behave import *
 from base.user_telegram import User
-from utiles.logger_file import LogGen
 from base.functions import check_message_by_list, get_random_month_day
 import re
 import datetime
-logger = LogGen.loggen()
 
-""""""
+
+"""Steps in Spacebot"""
+
+#convert to int
 def to_int(text):
     return int(text)
-
 register_type(Number=to_int)
 
+#available roless in Spacebot
 role_dict={
     'user' : 'context.user',
     'lvl1_1' : 'context.lvl1_1',
@@ -45,8 +46,6 @@ def step_impl(context, role, number):
 
     for message in messages:
         if message.text.startswith(context.list_info_ticket[0]):
-            # with open('C:/Users/wsu/Desktop/ttt.txt', 'a', encoding='utf-8') as file:
-            #     file.write(str(context.list_info_ticket) + '\n' + str(message.text))
             assert check_message_by_list(message.text, context.list_info_ticket)
 
 @step("{role} check data of tickets in ticket_bot # {bot:Number}")
@@ -132,9 +131,6 @@ def step_impl(context, role, variant):
 
     agent.click_button('^{}$'.format(first_number), mess_quant=2)
     assert agent.check_message(date_from, mess_quant=1)
-    with open('C:/Users/wsu/Desktop/ttt.txt', 'a', encoding='utf-8') as file:
-        file.write(str(agent.get_message()) + '\n' + str(date_from)+ '\n')
+
     agent.click_button('^{}$'.format(second_number), mess_quant=2)
     assert agent.check_message(date_till, mess_quant=1)
-    with open('C:/Users/wsu/Desktop/ttt.txt', 'a', encoding='utf-8') as file:
-        file.write(str(agent.get_message()) + '\n' + str(date_till)+ '\n')

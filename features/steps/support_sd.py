@@ -1,9 +1,9 @@
 from behave import *
 from base.user_telegram import User
-from utiles.logger_file import LogGen
 from base.functions import check_message_by_list
 import re
-logger = LogGen.loggen()
+
+"""Steps as SD in Supportbot"""
 
 @step("sd check message: -{message}-")
 def step_impl(context, message):

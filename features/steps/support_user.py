@@ -1,10 +1,8 @@
 from behave import *
 from base.user_telegram import User
-from utiles.logger_file import LogGen
 from base.functions import check_message_by_list
-import re
-logger = LogGen.loggen()
 
+"""Steps as user in Supportbot"""
 
 @step("user click the button -{button}-")
 def step_impl(context, button):
@@ -24,7 +22,7 @@ def step_impl(context):
     part2 = context.list_info_ticket[1]
     part3 = 'From: '+context.list_info_ticket[2]
 
-    assert user.check_message(part1,mess_quant=2)
+    assert user.check_message(part1, mess_quant=2)
     assert user.check_message(part2, mess_quant=2)
     assert user.check_message(part3, mess_quant=2)
 

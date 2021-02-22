@@ -18,7 +18,7 @@ Feature: payment_info
   Scenario: payment_info_check_text_rest_salary
     Given client send message -/start-
      And client click the button -Інформація по виплатам-
-     And client click the button -Який у мене залишок ЗП на виплату? (тікет)-
+     And client click the button -Який у мене залишок ЗП на виплату?-
      And client click the button -Відмінити тікет-
     When client click the button -Так-
     Then client check message -Тікет скасований-1138-

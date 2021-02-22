@@ -1,3 +1,7 @@
 *.session
-/reports/*
+config
 /Logs/*
+trash
+venv
+.idea
+reports

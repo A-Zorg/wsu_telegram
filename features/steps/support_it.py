@@ -1,9 +1,9 @@
 from behave import *
 from base.user_telegram import User
-from utiles.logger_file import LogGen
 from base.functions import check_message_by_list
 import re
-logger = LogGen.loggen()
+
+"""Steps as IT in Supportbot"""
 
 @step("it check message: -{message}-")
 def step_impl(context, message):
@@ -33,11 +33,7 @@ def step_impl(context):
     messages = agent.get_messages()
     for message in messages:
         if message.text.startswith(context.list_info_ticket[0]):
-            with open('C:/Users/wsu/Desktop/ttt.txt','a', encoding='utf-8') as file:
-                file.write(str(context.list_info_ticket)+'\n'+message.text)
             assert check_message_by_list(message.text, context.list_info_ticket)
-            with open('C:/Users/wsu/Desktop/ttt.txt','a', encoding='utf-8') as file:
-                file.write(str(context.list_info_ticket)+'\n'+message.text)
 
 @step("it check photo or another media")
 def step_impl(context):

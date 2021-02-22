@@ -28,6 +28,16 @@ def step_impl(context, role, button, number):
     client = User(context_role, context.bot[0])
     client.click_button(button,mess_quant=number)
 
+@step("risk {role} click one of the button -{button1}- or -{button2}- #message:{number:Number}")
+def step_impl(context, role, button1, button2, number):
+    context_role = eval(role_dict[role])
+    client = User(context_role, context.bot[0])
+    try:
+        client.click_button(button1,mess_quant=number)
+        assert client.check_message('Подписка на Лекцию Арика удалена', mess_quant=number)
+    except:
+        client.click_button(button2, mess_quant=number)
+        assert client.check_message('Вы подписались на Лекцию Арика', mess_quant=number)
 @step("risk {role} click the button -{button}- in group #message:{number:Number}")
 def step_impl(context, role, button, number):
     context_role = eval(role_dict[role])

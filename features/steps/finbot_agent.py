@@ -1,8 +1,8 @@
 from behave import *
 from base.user_telegram import User
-from utiles.logger_file import LogGen
-import re
-logger = LogGen.loggen()
+
+
+"""Steps as agent in Finbot"""
 
 @then("agent get message -{message}-")
 def step_impl(context, message):
@@ -11,8 +11,6 @@ def step_impl(context, message):
 
 @step("agent check a ticket number")
 def step_impl(context):
-    # with open('C:/Users/wsu/Desktop/ttt.txt','a') as file:
-    #     file.write(str(context.ticket_number))
     client = User(context.agent, context.bot[0])
     assert client.check_message(context.ticket_number)
 

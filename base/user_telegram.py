@@ -11,6 +11,7 @@ class User():
      - click button
      - send message
      - get message(s)
+     - send file
     ------------------------------
     client - object of TelegramClient()
     bot - name of the bot who you talk to
@@ -55,6 +56,7 @@ class User():
                     await conv.wait_event(events.NewMessage(from_users=self.bot))
                 except:
                     logger.error("could not wait")
+
     async def __async_click_button(self, tex, mess = 2):
         messages = await self.__last_messages(quantity=mess)
         button = find_button(messages, tex)
@@ -62,6 +64,7 @@ class User():
         event = button.click()
         await asyncio.wait({event, message},return_when='FIRST_COMPLETED' )
         await self.__wait_after_action()
+
     async def __async_click_button_wit4sec_waiting(self, tex, mess = 2):
         messages = await self.__last_messages(quantity=mess)
         button = find_button(messages, tex)
@@ -85,8 +88,9 @@ class User():
     async def __async_check_message(self, search_text, mess_quant=2):
         messages = await self.__last_messages(quantity=mess_quant)
         self.check_text = False
+
         for message in messages:
-            if re.search(pattern=search_text,string=message.text):
+            if re.search(pattern=search_text,string=message.text) or search_text in message.text:
                 self.check_text = True
                 return
 
@@ -128,6 +132,7 @@ class User():
     async def __async_send_file(self, file):
         await self.client.send_file(entity=self.bot, file=file, force_document=True)
         await self.__wait_after_action()
+
     """functions for step files"""
     def click_button(self, tex, mess_quant=2):
         with self.client:

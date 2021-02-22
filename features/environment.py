@@ -1,5 +1,4 @@
 from behave import use_fixture
-from base.fixtures import finbot, support, space, risk
 from allure_behave.hooks import allure_report
 
 bot_fixture_dict = {
@@ -16,9 +15,10 @@ def before_feature(context, feature):
     context.bot = feature.tags
     use_fixture(fixture, context)
 
-
-"""create allure reports"""
-allure_report("reports/")
-
+#
+# """create allure reports"""
+# allure_report("allure-results/")
+#
+#
 
 

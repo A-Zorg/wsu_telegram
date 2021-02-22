@@ -1,7 +1,8 @@
 *.session
-config
+/config
 /Logs/*
-trash
-venv
-.idea
-reports
+/trash
+/venv
+/.idea
+/reports
+*.ini

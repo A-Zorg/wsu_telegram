@@ -11,7 +11,7 @@ Feature: support comment ticket
       And ops add event to list_info_ticket: -Тикет принял: -
       And ops click the button -<button_1>- 2
       And ops click the button -<button_2>- 2
-      And interuser pause
+#      And interuser pause
       And <role> add event to list_info_ticket: -<var>-
       And <role> click the button -Взять тикет- 2
       And <role> click the button -Добавить комментарий- 2

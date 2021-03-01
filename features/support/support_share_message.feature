@@ -21,6 +21,6 @@ Feature: support share message
     When sd click the button -Test2- 2
      And sd check message: -пользователям?-
      And sd click the button -Да- 2
-     And pause 2
+#     And pause 2
      And sd check message: -Уведомление успешно отправлено-
     Then ops check message: -message-

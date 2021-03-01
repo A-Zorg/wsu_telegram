@@ -5,7 +5,6 @@ Feature: support take ticket
     Given background send message -/start-
      And background send message -message-
      And background create list_info_ticket: message is -message-
-     And pause 2
 
   Scenario: ops take
     When ops click the button -Взять тикет- 3
@@ -19,7 +18,6 @@ Feature: support take ticket
   Scenario: sd take
     Given ops click the button -Передать в SD- 3
      And ops click the button -Bug- 3
-     But interuser pause
      And sd add event to list_info_ticket: -OPS ➡ ️SD-
      And sd click the button -Взять тикет- 3
      And sd add event to list_info_ticket: -Тикет принял: -
@@ -31,13 +29,11 @@ Feature: support take ticket
   Scenario: sd->it take
     Given ops click the button -Передать в SD- 3
      And ops click the button -Feature request- 3
-     But interuser pause
      And sd add event to list_info_ticket: -OPS ➡ ️SD-
      And sd click the button -Передать в IT- 3
      And sd click the button -Нет- 3
      And sd click the button -Передать в IT- 3
      And sd click the button -Да- 3
-     But interuser pause
      And it add event to list_info_ticket: -SD ➡ ️IT-
     When it click the button -Взять тикет- 3
      And it add event to list_info_ticket: -Тикет принял: -
@@ -50,8 +46,8 @@ Feature: support take ticket
     When ops click the button -Взять тикет- 3
      And ops add event to list_info_ticket: -Тикет принял: -
      But user after taking the ticket check the message
-     And  ops click the button -Передать в SD- 3
-     And  ops click the button -Not classified- 3
+     And ops click the button -Передать в SD- 3
+     And ops click the button -Not classified- 3
      And sd add event to list_info_ticket: -OPS ➡ ️SD-
      And sd click the button -Взять тикет- 3
      And sd add event to list_info_ticket: -Тикет принял: -

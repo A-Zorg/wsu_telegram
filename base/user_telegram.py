@@ -1,8 +1,9 @@
-from telethon import events
-import asyncio
-from base.functions import  find_button, find_text_from_table
-from utiles.logger_file import LogGen
 import re
+import time
+import asyncio
+from telethon import events
+from base.functions import find_button, find_text_from_table
+from utiles.logger_file import LogGen
 logger = LogGen.loggen()
 
 class User():
@@ -29,14 +30,14 @@ class User():
         messages = await self.client.get_messages(self.bot, limit=quantity)
         return messages
 
-    async def __double_new_waiting (self, conver):
+    async def __double_new_waiting(self, conver):
         await conver.wait_event(events.NewMessage(from_users=self.bot))
         try:
             await conver.wait_event(events.NewMessage(from_users=self.bot), timeout=3)
         except:
             pass
 
-    async def __double_edit_waiting (self, conver):
+    async def __double_edit_waiting(self, conver):
         await conver.wait_event(events.MessageEdited(from_users=self.bot))
         try:
             await conver.wait_event(events.MessageEdited(from_users=self.bot), timeout=2)
@@ -57,20 +58,43 @@ class User():
                 except:
                     logger.error("could not wait")
 
-    async def __async_click_button(self, tex, mess = 2):
-        messages = await self.__last_messages(quantity=mess)
-        button = find_button(messages, tex)
+    async def __wait_for_button(self, text_button, qty_messages):
+        start = time.time()
+        while True:
+            messages = await self.__last_messages(quantity=qty_messages)
+            button = find_button(messages, text_button)
+            if button is not None:
+                return button
+            if time.time() - start > 7:
+                return False
+            time.sleep(0.5)
+            qty_messages += 1
+
+    async def __wait_for_message(self, text_message, qty_messages):
+        start = time.time()
+        while True:
+            messages = await self.__last_messages(quantity=qty_messages)
+            for message in messages:
+                if re.search(pattern=text_message, string=message.text) or text_message in message.text:
+                    return True
+                if time.time() - start > 7:
+                    return False
+            time.sleep(0.5)
+            qty_messages += 1
+
+    async def __async_click_button(self, text, qty_messages=2):
+        button = await self.__wait_for_button(text_button=text, qty_messages=qty_messages)
         message = self.__get_last_message()
         event = button.click()
-        await asyncio.wait({event, message},return_when='FIRST_COMPLETED' )
+        await asyncio.wait({event, message}, return_when='FIRST_COMPLETED')
         await self.__wait_after_action()
 
-    async def __async_click_button_wit4sec_waiting(self, tex, mess = 2):
+    async def __async_click_button_wit4sec_waiting(self, tex, mess=2):
         messages = await self.__last_messages(quantity=mess)
         button = find_button(messages, tex)
         message = self.__get_last_message()
         event = button.click()
-        await asyncio.wait({event, message},return_when='FIRST_COMPLETED' )
+        await asyncio.wait({event, message}, return_when='FIRST_COMPLETED')
         await asyncio.sleep(4)
 
     async def __async_send_message(self, message):
@@ -81,18 +105,15 @@ class User():
         message = await self.__get_last_message()
         self.message = message.text
 
-    async def __async_get_messages(self, n):
-        messages = await self.__last_messages(quantity=n)
+    async def __async_get_messages(self, qty):
+        messages = await self.__last_messages(quantity=qty)
         self.messages = messages
 
     async def __async_check_message(self, search_text, mess_quant=2):
-        messages = await self.__last_messages(quantity=mess_quant)
-        self.check_text = False
-
-        for message in messages:
-            if re.search(pattern=search_text,string=message.text) or search_text in message.text:
-                self.check_text = True
-                return
+        self.check_text = await self.__wait_for_message(
+            text_message=search_text,
+            qty_messages=mess_quant
+        )
 
     async def __async_check_message_code(self, code):
         messages = await self.__last_messages()
@@ -113,7 +134,7 @@ class User():
     async def __async_button_is_disappeared(self, button_name, mess_quant):
         messages = await self.__last_messages(quantity=mess_quant)
         button = find_button(messages, button_name)
-        self.check_disappeared_button = True if button == None else False
+        self.check_disappeared_button = True if button is None else False
 
     async def __async_immutable_after_click(self, button_name, mess_quant):
         messages = await self.__last_messages(quantity=mess_quant)
@@ -127,16 +148,16 @@ class User():
         await asyncio.sleep(2)
         messages = await self.__last_messages(quantity=mess_quant)
         message_after = messages[0].text
-        self.immutable_after_click_result = True if message_before==message_after else False
+        self.immutable_after_click_result = True if message_before == message_after else False
 
     async def __async_send_file(self, file):
         await self.client.send_file(entity=self.bot, file=file, force_document=True)
         await self.__wait_after_action()
 
     """functions for step files"""
-    def click_button(self, tex, mess_quant=2):
+    def click_button(self, text, mess_quant=2):
         with self.client:
-            self.client.loop.run_until_complete(self.__async_click_button(tex, mess_quant))
+            self.client.loop.run_until_complete(self.__async_click_button(text, mess_quant))
 
     def click_button_wit4sec_waiting(self, tex, mess_quant=2):
         with self.client:
@@ -151,12 +172,12 @@ class User():
             self.client.loop.run_until_complete(self.__async_get_message())
         return self.message
 
-    def get_messages(self, quantity_mess=2 ):
+    def get_messages(self, quantity_mess=2):
         with self.client:
             self.client.loop.run_until_complete(self.__async_get_messages(quantity_mess))
             return self.messages
 
-    def check_message(self, search_text,mess_quant=2):
+    def check_message(self, search_text, mess_quant=2):
         with self.client:
             self.client.loop.run_until_complete(self.__async_check_message(search_text, mess_quant=mess_quant))
         return self.check_text

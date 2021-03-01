@@ -1,6 +1,5 @@
 *.session
 /config
-/Logs/*
 /trash
 /venv
 /.idea

@@ -21,7 +21,6 @@ Feature: support feedback, opentasks
      And user check message: -Добавьте текст/картинку-
      And user send message -BUG-
      And user check message: -Спасибо за фидбек-
-     And pause 3
      And background create list_info_ticket: message is -BUG-
     Then ops check data of ticket
      And user check message: -Ваш фидбек из ⚡️ Smart.Support:-

@@ -10,7 +10,6 @@ Feature: to smart_space_bot
      Given ops click the button -Передать в 👐 SmartSpace- 2
       And ops click the button -Да- 2
       And ops check message: -Тикет передан в 👐 SmartSpace-
-      And pause 2
       And user check message: -Тикет закрыт-
       And user check message: -Ваш тикет передан в 👐 SmartSpace-
      Then user check message in bot

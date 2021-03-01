@@ -8,7 +8,6 @@ Feature: space photo
   Scenario Outline: hr, pr, project, cyprus watch photo
     Given lvl1_1 click the button -<button_1>- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
      And <role> click the button -Взять тикет- quantity 2
      And <role> click the button -Фото и место- quantity 2
     Then <role> - check photo or another media

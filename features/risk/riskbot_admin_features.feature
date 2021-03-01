@@ -28,9 +28,7 @@ Feature: checking admin function buttons
       And risk risk_2 click the button -Админ- #message:2
      When risk risk_2 click the button -Ночной дозор- #message:2
       And risk risk_2 check message : -в ночном дозоре- #message:2
-      And pause 3
       And risk risk_1 check message : -в ночном дозоре- #message:2
      Then risk risk_2 click the button -Отменить ночной дозор- #message:2
       And risk risk_2 check message : -покинул ночной дозор- #message:2
-      And pause 3
       And risk risk_1 check message : -покинул ночной дозор- #message:1

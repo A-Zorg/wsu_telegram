@@ -66,6 +66,11 @@ def step_impl(context, button):
     client = User(context.ops2, context.bot[0])
     assert client.immutable_after_click(button)
 
+@step("ops try to click: -{button}-")
+def step_impl(context, button):
+    client = User(context.ops1, context.bot[0])
+    assert client.immutable_after_click(button)
+
 @step("ops2 click the button -{button}- {quantity}")
 def step_impl(context, button, quantity):
     agent = User(context.ops2, context.bot[0])

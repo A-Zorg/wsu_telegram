@@ -10,7 +10,6 @@ Feature: to base
      And background create list_info_ticket: message is -message-
     Given lvl1_1 click the button -<depart>- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
     When <role_1> click the button -Взять тикет- quantity 2
      And <role_1> click the button -Пометить- quantity 2
      And <role_1> click the button -💉- quantity 2

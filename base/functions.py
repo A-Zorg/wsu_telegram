@@ -72,13 +72,22 @@ def pgsql_update(request, logger, user, password, port, host, database):
 
 def check_telethon_session(config, logger):
     """check creds and rights of each user"""
+    users_list = [
+        'client_spacebot(project-cyprus)',
+        'fin_ops_lvl1_risk',
+        'fin_sd_pr_risk(nightwatch)',
+        'ops_lvl1',
+        'sd_pr',
+        'it_hr1',
+        'it_hr2',
+    ]
     for user in config:
-        if str(user) != "DEFAULT" and str(user) != "pgsql":
+        if str(user) in users_list:
             print("----------------------------------------------------------")
             print("api_id: "+config[user]["api_id"])
             config_set = list(config[user].values())[:-1]
             session = TelegramClient(*config_set)
-
+            print('asdas')
             try:
                 async def main():
                     my_data = await session.get_me()
@@ -105,9 +114,9 @@ def check_telethon_session(config, logger):
                 logger.error("The test session isn't created")
                 raise Exception("The test session isn't created")
 
-def check_worktime_of_supportbot(context, scenario):
-    """check worktime of support bot """
+def check_worktime_of_supportbot(context, feature):
+    """check worktime of supportbot bot """
     time_now = datetime.datetime.utcnow().time()
-    if time_now <= datetime.time(8, 0, 0) or time_now >= datetime.time(23, 0, 0):
-        scenario.skip("OOPS: Assumption not met")
+    if 'sd_test3_bot' in feature.tags and (time_now <= datetime.time(8, 0, 0) or time_now >= datetime.time(23, 0, 0)):
+        feature.skip("OOPS: Assumption not met")
         context.logger.error("Support bot does not work from 08:00 to 23:00 UTC")

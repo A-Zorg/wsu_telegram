@@ -5,6 +5,10 @@ Feature: space take ticket
     Given background send message -/start-
      And background send message -message-
      And background create list_info_ticket: message is -message-
+     And risk_1 on Отменить подстраховку
+     And risk_2 on Отменить ночной дозор
+     And risk_2 on Отменить подстраховку
+     And The riskman maintains the user: false
 
   Scenario: take ticket
     Given risk risk_1 click the button -Взять тикет- in group #message:2

@@ -38,7 +38,6 @@ Feature: support close ticket
      And ops add event to list_info_ticket: -Тикет принял: -
      And ops click the button -Передать в SD- 3
      And ops click the button -Bug- 3
-#     But interuser pause
      And sd add event to list_info_ticket: -OPS ➡ ️SD-
      And sd click the button -Взять тикет- 3
      And sd add event to list_info_ticket: -Тикет принял: -

@@ -21,7 +21,6 @@ Feature: space take ticket
   Scenario Outline: hr, pr, project, cyprus comment first level
     Given lvl1_1 click the button -<button_1>- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
      And <role> click the button -Добавить комментарий- quantity 2
      And <role> check message : -Добавьте комментарий- quantity 2
      And <role> - send message -comment-
@@ -41,7 +40,6 @@ Feature: space take ticket
   Scenario Outline: hr, pr, project, cyprus comment second level
     Given lvl1_1 click the button -<button_1>- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
      And <role> click the button -Взять тикет- quantity 2
      And <role> click the button -Добавить комментарий- quantity 2
      And <role> check message : -Добавьте комментарий- quantity 2

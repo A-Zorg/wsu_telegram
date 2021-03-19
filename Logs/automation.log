@@ -1,0 +1,68 @@
+03/18/2021 07:41:04 PM: ERROR: Task exception was never retrieved
+future: <Task finished name='Task-839' coro=<User.__double_edit_waiting() done, defined at C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py:40> exception=TimeoutError()>: base_events.py
+Traceback (most recent call last):
+  File "C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py", line 41, in __double_edit_waiting
+    await conver.wait_event(events.MessageEdited(from_users=self.bot))
+  File "c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\tl\custom\conversation.py", line 339, in wait_event
+    return await self._get_result(future, start_time, timeout, self._custom, counter)
+  File "C:\Users\wsu\anaconda3\lib\asyncio\tasks.py", line 490, in wait_for
+    raise exceptions.TimeoutError()
+asyncio.exceptions.TimeoutError
+03/18/2021 07:41:04 PM: ERROR: Task exception was never retrieved
+future: <Task finished name='Task-840' coro=<User.__double_new_waiting() done, defined at C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py:33> exception=TimeoutError()>: base_events.py
+Traceback (most recent call last):
+  File "C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py", line 34, in __double_new_waiting
+    await conver.wait_event(events.NewMessage(from_users=self.bot))
+  File "c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\tl\custom\conversation.py", line 339, in wait_event
+    return await self._get_result(future, start_time, timeout, self._custom, counter)
+  File "C:\Users\wsu\anaconda3\lib\asyncio\tasks.py", line 490, in wait_for
+    raise exceptions.TimeoutError()
+asyncio.exceptions.TimeoutError
+03/18/2021 08:01:27 PM: ERROR: Task exception was never retrieved
+future: <Task finished name='Task-7951' coro=<UpdateMethods._dispatch_update() done, defined at c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\client\updates.py:383> exception=InvalidStateError('invalid state')>: base_events.py
+Traceback (most recent call last):
+  File "c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\client\updates.py", line 426, in _dispatch_update
+    await conv._check_custom(built)
+  File "c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\tl\custom\conversation.py", line 352, in _check_custom
+    fut.set_result(inst)
+asyncio.exceptions.InvalidStateError: invalid state
+03/19/2021 11:29:35 AM: ERROR: Task exception was never retrieved
+future: <Task finished name='Task-776' coro=<User.__double_edit_waiting() done, defined at C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py:40> exception=TimeoutError()>: base_events.py
+Traceback (most recent call last):
+  File "C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py", line 41, in __double_edit_waiting
+    await conver.wait_event(events.MessageEdited(from_users=self.bot))
+  File "c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\tl\custom\conversation.py", line 339, in wait_event
+    return await self._get_result(future, start_time, timeout, self._custom, counter)
+  File "C:\Users\wsu\anaconda3\lib\asyncio\tasks.py", line 490, in wait_for
+    raise exceptions.TimeoutError()
+asyncio.exceptions.TimeoutError
+03/19/2021 11:29:35 AM: ERROR: Task exception was never retrieved
+future: <Task finished name='Task-777' coro=<User.__double_new_waiting() done, defined at C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py:33> exception=TimeoutError()>: base_events.py
+Traceback (most recent call last):
+  File "C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py", line 34, in __double_new_waiting
+    await conver.wait_event(events.NewMessage(from_users=self.bot))
+  File "c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\tl\custom\conversation.py", line 339, in wait_event
+    return await self._get_result(future, start_time, timeout, self._custom, counter)
+  File "C:\Users\wsu\anaconda3\lib\asyncio\tasks.py", line 490, in wait_for
+    raise exceptions.TimeoutError()
+asyncio.exceptions.TimeoutError
+03/19/2021 11:31:51 AM: ERROR: Task exception was never retrieved
+future: <Task finished name='Task-1211' coro=<User.__double_edit_waiting() done, defined at C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py:40> exception=TimeoutError()>: base_events.py
+Traceback (most recent call last):
+  File "C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py", line 41, in __double_edit_waiting
+    await conver.wait_event(events.MessageEdited(from_users=self.bot))
+  File "c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\tl\custom\conversation.py", line 339, in wait_event
+    return await self._get_result(future, start_time, timeout, self._custom, counter)
+  File "C:\Users\wsu\anaconda3\lib\asyncio\tasks.py", line 490, in wait_for
+    raise exceptions.TimeoutError()
+asyncio.exceptions.TimeoutError
+03/19/2021 11:31:51 AM: ERROR: Task exception was never retrieved
+future: <Task finished name='Task-1212' coro=<User.__double_new_waiting() done, defined at C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py:33> exception=TimeoutError()>: base_events.py
+Traceback (most recent call last):
+  File "C:\Users\wsu\PycharmProjects\telegram-bot\base\user_telegram.py", line 34, in __double_new_waiting
+    await conver.wait_event(events.NewMessage(from_users=self.bot))
+  File "c:\users\wsu\pycharmprojects\telegram-bot\venv\lib\site-packages\telethon\tl\custom\conversation.py", line 339, in wait_event
+    return await self._get_result(future, start_time, timeout, self._custom, counter)
+  File "C:\Users\wsu\anaconda3\lib\asyncio\tasks.py", line 490, in wait_for
+    raise exceptions.TimeoutError()
+asyncio.exceptions.TimeoutError

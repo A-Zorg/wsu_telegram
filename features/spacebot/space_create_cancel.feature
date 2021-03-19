@@ -18,9 +18,7 @@ Feature: space create cancel
      And lvl1_1 click the button -Нет- quantity 2
      And lvl1_1 click the button -Передать в HR- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
      And user click the button -Отменить тикет- quantity 2
-     And pause 2
     Then user check message : -Тикет отменен- quantity 3
      And hr_1 check message : -Task canceled by user- quantity 3
 
@@ -28,7 +26,6 @@ Feature: space create cancel
     Given lvl1_1 check data of tickets quantity 2
      And lvl1_1 click the button -Передать в HR- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
     When hr_1 click the button -Взять тикет- quantity 2
      And user click the button -Отменить тикет- quantity 2
     Then user check message : -Тикет отменен- quantity 2
@@ -38,7 +35,6 @@ Feature: space create cancel
     Given lvl1_1 check data of tickets quantity 2
      And lvl1_1 click the button -Передать в HR- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
     When hr_1 click the button -Взять тикет- quantity 2
     Then user check data of tickets in ticket_bot # 1
      And user click the button -Отменить тикет- in ticket_bot # 1 quantity 2

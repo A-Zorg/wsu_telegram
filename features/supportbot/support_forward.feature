@@ -10,12 +10,10 @@ Feature: support forward
    Scenario Outline: forward 1
      Given ops click the button -Передать в SD- 3
       And ops click the button -🐞 Bug- 3
-      And interuser pause
       And sd add event to list_info_ticket: -OPS ➡ ️SD-
       And sd click the button -<button>- 3
       And sd click the button -Да- 3
       And sd add event to list_info_ticket: -<var>-
-      And interuser pause
      When <role> click the button -Взять тикет- 3
      Then <role> check data of ticket
       And <role> click the button -Закрыть тикет- 3

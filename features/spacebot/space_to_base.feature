@@ -3,12 +3,10 @@ Feature: to base
    Background: base
     Given user - send message -/start-
      And user - send message -message-
-     And pause 3
 
     Scenario Outline: to base hr illness and vacation
     Given lvl1_1 click the button -Передать в HR- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
     When hr_1 click the button -Взять тикет- quantity 2
      And hr_1 click the button -Оформить тикет в базу- quantity 2
 #     And hr_1 click the button -Отмена- quantity 2
@@ -32,7 +30,6 @@ Feature: to base
      And background create list_info_ticket: message is -message-
     Given lvl1_1 click the button -Передать в HR- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
     When hr_1 click the button -Взять тикет- quantity 2
      And hr_1 click the button -Оформить тикет в базу- quantity 2
      And hr_1 click the button -Отмена- quantity 2
@@ -56,7 +53,6 @@ Feature: to base
     Scenario: to base hr lection
     Given lvl1_1 click the button -Передать в HR- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
     When hr_1 click the button -Взять тикет- quantity 2
      And hr_1 click the button -Оформить тикет в базу- quantity 2
      And hr_1 click the button -Пропуск лекции- quantity 2
@@ -71,7 +67,6 @@ Feature: to base
      And background create list_info_ticket: message is -message-
     Given lvl1_1 click the button -Передать в HR- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
     When hr_1 click the button -Взять тикет- quantity 2
      And hr_1 click the button -Оформить тикет в базу- quantity 2
      And hr_1 click the button -Пропуск лекции- quantity 2
@@ -88,7 +83,7 @@ Feature: to base
 #     And background create list_info_ticket: message is -message-
 #    Given lvl1_1 click the button -Передать в HR- quantity 2
 #     And lvl1_1 click the button -Да- quantity 2
-#     And pause 3
+
 #    When hr_1 click the button -Взять тикет- quantity 2
 #     And hr_1 click the button -Оформить тикет в базу- quantity 2
 #     And hr_1 click the button -Обучение- quantity 2
@@ -115,7 +110,7 @@ Feature: to base
 #     And background create list_info_ticket: message is -message-
 #    Given lvl1_1 click the button -Передать в HR- quantity 2
 #     And lvl1_1 click the button -Да- quantity 2
-#     And pause 3
+
 #    When pr_1 click the button -Взять тикет- quantity 2
 #     And pr_1 click the button -Оформить тикет в базу- quantity 2
 #     And pr_1 click the button -Обучение- quantity 2

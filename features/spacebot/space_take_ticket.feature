@@ -10,7 +10,6 @@ Feature: space take ticket
   Scenario Outline: pr or hr close ticket
     Given lvl1_1 click the button -<button_1>- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 3
      And <role> click the button -Взять тикет- quantity 2
      And <role> - add event to list_info_ticket: -Тикет принял: -
     When user after taking the ticket check the message
@@ -22,7 +21,6 @@ Feature: space take ticket
 
      But <role> check data of tickets in ticket_bot # 2
      And <role> check message : -Вы приняли тикет 👐- in bot # 2 quantity 2
-     And pause 3
      And <role> click the button -Закрыть тикет- quantity 2
      And <role> click the button -Да- quantity 2
 

@@ -7,7 +7,6 @@ Feature: space close ticket
      And background create list_info_ticket: message is -message-
      And lvl1_1 click the button -Передать в HR- quantity 2
      And lvl1_1 click the button -Да- quantity 2
-     And pause 2
      And hr_1 click the button -Взять тикет- quantity 2
      And hr_1 click the button -Закрыть тикет- quantity 2
      And hr_1 click the button -Да- quantity 2

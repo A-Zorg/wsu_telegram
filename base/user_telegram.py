@@ -138,7 +138,8 @@ class User():
 
     async def __async_immutable_after_click(self, button_name, mess_quant):
         messages = await self.__last_messages(quantity=mess_quant)
-        button = find_button(messages, button_name)
+        # button = find_button(messages, button_name)
+        button = await self.__wait_for_button(text_button=button_name, qty_messages=mess_quant)
         message_before = messages[0].text
         """click the button"""
         cork = self.__get_last_message()
@@ -206,3 +207,5 @@ class User():
     def send_file(self, file):
         with self.client:
             self.client.loop.run_until_complete(self.__async_send_file(file))
+
+

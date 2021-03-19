@@ -5,6 +5,11 @@ Feature: to SupportBot
     Given background send message -/start-
      And background send message -message-
      And background create list_info_ticket: message is -message-
+     And risk_1 on Отменить подстраховку
+     And risk_2 on Отменить ночной дозор
+     And risk_2 on Отменить подстраховку
+     And The riskman maintains the user: false
+
 
   Scenario: to SupportBot
     Given risk risk_1 click the button -Передать в ⚡️ Smart.Support- in group #message:2

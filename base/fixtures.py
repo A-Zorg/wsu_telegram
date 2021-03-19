@@ -16,7 +16,7 @@ def finbot(context):
 
 
 @fixture()
-def support(context):
+def supportbot(context):
     """the fixture for Support bot"""
     context.user = TelegramClient(*list(config['client_spacebot(project-cyprus)'].values())[:-1])
     context.ops1 = TelegramClient(*list(config['fin_ops_lvl1_risk'].values())[:-1])
@@ -29,7 +29,7 @@ def support(context):
 
 
 @fixture()
-def space(context):
+def spacebot(context):
     """the fixture for Space bot"""
     context.user = TelegramClient(*list(config['client_spacebot(project-cyprus)'].values())[:-1])
     context.lvl1_1 = TelegramClient(*list(config['fin_ops_lvl1_risk'].values())[:-1])
@@ -43,9 +43,10 @@ def space(context):
     yield
 
 @fixture()
-def risk(context):
+def riskbot(context):
     """the fixture for Risk bot"""
     context.user = TelegramClient(*list(config['client_spacebot(project-cyprus)'].values())[:-1])
     context.risk_1 = TelegramClient(*list(config['fin_ops_lvl1_risk'].values())[:-1])
     context.risk_2 = TelegramClient(*list(config['fin_sd_pr_risk(nightwatch)'].values())[:-1])
+    context.risk_3 = TelegramClient(*list(config['it_hr2'].values())[:-1])
     yield

@@ -43,7 +43,6 @@ def step_impl(context, role, number):
     context_role = eval(role_dict[role])
     client = User(context_role, context.bot[0])
     messages = client.get_messages(quantity_mess=number)
-
     for message in messages:
         if message.text.startswith(context.list_info_ticket[0]):
             assert check_message_by_list(message.text, context.list_info_ticket)
@@ -121,10 +120,10 @@ def step_impl(context, role, variant):
 
     if variant == 'correct':
         first_number = get_random_month_day()
-        second_number = get_random_month_day(min=first_number)
+        second_number = get_random_month_day(min_val=first_number)
     elif variant == 'incorrect':
         first_number = get_random_month_day()
-        second_number = get_random_month_day(max=first_number-1)
+        second_number = get_random_month_day(max_val=first_number-1)
 
     date_from = 'Дата от: {0}-{1}-{2} 00:00:00'.format(current_data.year, str(current_data.month).zfill(2),str(first_number).zfill(2))
     date_till = 'Дата до: {0}-{1}-{2} 00:00:00'.format(current_data.year, str(current_data.month).zfill(2),str(second_number).zfill(2))

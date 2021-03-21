@@ -5,6 +5,7 @@ import re
 import pyexcel
 import psycopg2
 from telethon import TelegramClient
+from base.sql_functions import pgsql_update
 
 def find_table():
     """get table with with finbot message data"""
@@ -50,26 +51,6 @@ def get_random_file_path():
     number_file = random.randint(1, 5)
     return 'files/{}.jpg'.format(number_file)
 
-def pgsql_update(request, logger, user, password, port, host, database):
-    """update data in the pgsql table"""
-    try:
-        with psycopg2.connect(
-                user=user,
-                host=host,
-                port=port,
-                password=password,
-                database=database
-        ) as connect:
-            cursor = connect.cursor()
-            if request.startswith('UPDATE'):
-                cursor.execute(request)
-                connect.commit()
-                time.sleep(0.2)
-                return cursor.rowcount
-    except (Exception, psycopg2.DatabaseError) as error:
-        logger.error(error)
-    return True
-
 def check_telethon_session(config, logger):
     """check creds and rights of each user"""
     users_list = [
@@ -87,7 +68,6 @@ def check_telethon_session(config, logger):
             print("api_id: "+config[user]["api_id"])
             config_set = list(config[user].values())[:-1]
             session = TelegramClient(*config_set)
-            print('asdas')
             try:
                 async def main():
                     my_data = await session.get_me()
@@ -98,7 +78,6 @@ def check_telethon_session(config, logger):
 
                     response = pgsql_update(
                         request=request,
-                        logger=logger,
                         **config["pgsql"]
                     )
                     if response == 0:

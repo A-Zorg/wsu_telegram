@@ -2,13 +2,13 @@
 Feature: to SupportBot
 
   Background: base
-    Given background send message -/start-
-     And background send message -message-
-     And background create list_info_ticket: message is -message-
-     And risk_1 on Отменить подстраховку
+    Given risk_1 on Отменить подстраховку
      And risk_2 on Отменить ночной дозор
      And risk_2 on Отменить подстраховку
      And The riskman maintains the user: false
+     And background send message -/start-
+     And background send message -message-
+     And background create list_info_ticket: message is -message-
 
 
   Scenario: to SupportBot

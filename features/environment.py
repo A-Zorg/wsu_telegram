@@ -23,7 +23,7 @@ def before_all(context):
         context.my_config = config
     except:
         context.logger.error("The cred file is absent")
-    # check_telethon_session(config, context.logger)
+    check_telethon_session(config, context.logger)
 
 
 
@@ -50,10 +50,10 @@ def after_scenario(context, scenario):
 
 
 
-#
-# """create allure reports"""
-# allure_report("allure-results/")
-#
-#
+
+"""create allure reports"""
+allure_report("allure-results/")
+
+
 
 

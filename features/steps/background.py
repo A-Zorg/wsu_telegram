@@ -1,7 +1,8 @@
-from behave import *
-from base.user_telegram import User
 import re
 import time
+import datetime
+from behave import *
+from base.user_telegram import User
 
 
 @step("background send message -{message}-")
@@ -38,4 +39,21 @@ def step_impl(context, sec):
     time.sleep(float(sec))
 
 
+@step("check work_datetime: {workdays} - {workhours} - {message}")
+def step_impl(context, workdays, workhours, message):
+    """
+    workday = x-x-x-x-x
+    workhours x-x
+    """
+    client = User(context.user, context.bot[0])
+    today = datetime.datetime.utcnow().weekday() + 1
+    hour = datetime.datetime.utcnow().hour
+
+    if str(today) not in workdays.split('-'):
+        context.scenario.skip("not worktime")
+    elif int(workhours.split('-')[1]) <= hour < int(workhours.split('-')[0]):
+        context.scenario.skip("not worktime")
+
+    if message:
+        assert client.check_message(message)
 

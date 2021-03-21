@@ -66,3 +66,25 @@ Traceback (most recent call last):
   File "C:\Users\wsu\anaconda3\lib\asyncio\tasks.py", line 490, in wait_for
     raise exceptions.TimeoutError()
 asyncio.exceptions.TimeoutError
+03/20/2021 07:50:17 PM: WARNING: SKIP Scenario check NBP(user) -- @1.1 : not worktime: model.py
+03/20/2021 07:50:30 PM: WARNING: SKIP Scenario check NBP(user) -- @1.2 : not worktime: model.py
+03/20/2021 07:50:44 PM: WARNING: SKIP Scenario check NBP(user) -- @1.3 : not worktime: model.py
+03/20/2021 07:54:08 PM: WARNING: SKIP Scenario check NBP(user) -- @1.1 : not worktime: model.py
+03/20/2021 07:54:21 PM: WARNING: SKIP Scenario check NBP(user) -- @1.2 : not worktime: model.py
+03/20/2021 07:54:35 PM: WARNING: SKIP Scenario check NBP(user) -- @1.3 : not worktime: model.py
+03/20/2021 08:02:40 PM: WARNING: SKIP Scenario check NBP(user) -- @1.1 : not worktime: model.py
+03/20/2021 08:06:37 PM: WARNING: SKIP Scenario check NBP(user) -- @1.1 : not worktime: model.py
+03/20/2021 08:06:50 PM: WARNING: SKIP Scenario check NBP(user) -- @1.2 : not worktime: model.py
+03/20/2021 08:07:04 PM: WARNING: SKIP Scenario check NBP(user) -- @1.3 : not worktime: model.py
+03/20/2021 08:07:24 PM: WARNING: SKIP Scenario cancel NBP -- @1.1 : not worktime: model.py
+03/20/2021 08:07:44 PM: WARNING: SKIP Scenario cancel NBP -- @1.2 : not worktime: model.py
+03/20/2021 08:08:04 PM: WARNING: SKIP Scenario cancel NBP -- @1.3 : not worktime: model.py
+03/20/2021 09:42:41 PM: WARNING: SKIP Scenario check NBP(user) -- @1.1 : not worktime: model.py
+03/20/2021 09:42:54 PM: WARNING: SKIP Scenario check NBP(user) -- @1.2 : not worktime: model.py
+03/20/2021 09:43:07 PM: WARNING: SKIP Scenario check NBP(user) -- @1.3 : not worktime: model.py
+03/20/2021 09:43:28 PM: WARNING: SKIP Scenario cancel NBP -- @1.1 : not worktime: model.py
+03/20/2021 09:43:48 PM: WARNING: SKIP Scenario cancel NBP -- @1.2 : not worktime: model.py
+03/20/2021 09:44:09 PM: WARNING: SKIP Scenario cancel NBP -- @1.3 : not worktime: model.py
+03/21/2021 09:11:15 AM: ERROR: Support bot does not work from 08:00 to 23:00 UTC: functions.py
+03/21/2021 11:39:32 AM: ERROR: The test session isn't created: functions.py
+03/21/2021 11:54:35 AM: ERROR: The test session isn't created: functions.py

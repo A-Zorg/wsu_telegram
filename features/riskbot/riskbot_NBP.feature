@@ -27,6 +27,7 @@ Feature: NBP
     And risk user - send message -/start-
     And risk user click the button -Заявка NBP- #message:2
     And risk user click the button -NBP <NBP>- #message:2
+    And check work_datetime: 1-2-3-4-5 - 8-19 - принимаем с 03:00 до 15:00 EST в будние дни
     And risk user check message : -Введите заявку на <NBP> NBP- #message:2
     And risk user - send message -<incorrect_request>-
     And risk user check message : -Неправильный ввод\nВведите заявку на <NBP>- #message:2
@@ -60,6 +61,7 @@ Scenario Outline: cancel NBP
     And risk user click the button -Назад- #message:2
     And risk user click the button -Заявка NBP- #message:2
     And risk user click the button -NBP <NBP>- #message:2
+    And check work_datetime: 1-2-3-4-5 - 8-19 - принимаем с 03:00 до 15:00 EST в будние дни
     And risk user - send message -<correct_request>-
    When risk user click the button -Заявка NBP- #message:2
     And risk user click the button -NBP <NBP>- #message:2

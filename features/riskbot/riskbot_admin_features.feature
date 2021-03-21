@@ -44,9 +44,10 @@ Feature: checking admin function buttons
       And risk risk_2 check message : risk_1 plus покинул подстраховку
 
    Scenario: check opened tickets
-     Given background send message -/start-
-     And background send message -message-
-     And background create list_info_ticket: message is -message-
+     Given risk_1 on Отменить подстраховку
+     And risk_2 on Отменить ночной дозор
+     And risk_2 on Отменить подстраховку
+     And The riskman maintains the user: false
      And risk risk_2 - send message -/start-
      And risk risk_2 click the button -Админ- #message:2
      And risk risk_2 click the button -Открытые тикеты отдела- #message:2
@@ -54,9 +55,12 @@ Feature: checking admin function buttons
      And risk risk_1 click the button -Админ- #message:2
      And risk risk_1 click the button -Мои открытые тикеты- #message:2
      And risk_1 on Теперь я страхую
+     And background send message -/start-
+     And background send message -message-
+     And background create list_info_ticket: message is -message-
     When risk risk_2 check presence new ticket in the opened tickets: False
      And risk risk_1 check presence new ticket in the opened tickets: False
-     And pause 15
+     And pause 30
      And risk risk_1 click the button -Взять тикет- #message:2
     Then risk risk_1 click the button -Мои открытые тикеты- #message:2
      And risk risk_1 check presence new ticket in the opened tickets: True
